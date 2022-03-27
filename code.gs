@@ -17,7 +17,7 @@ function include(filename) {
 
 //GET DATA FROM GOOGLE SHEET AND RETURN AS AN ARRAY
 function getData11() {
-  var spreadSheetId = "1RyjKzFZZCfNqO9zF9vSQ7D6oEhhwUiMZ5hxHwnQBrCU"; //CHANGE
+  var spreadSheetId = ""; //-------------------------------------------PUT SPREADSHEET ID HERE
   var dataRange = "movimientos!A9:E"; //CHANGE
   var range = Sheets.Spreadsheets.Values.get(spreadSheetId, dataRange);
   var values = range.values;
@@ -25,7 +25,7 @@ function getData11() {
 }
 
 function listCategories() {
-  var spreadSheetId = "1RyjKzFZZCfNqO9zF9vSQ7D6oEhhwUiMZ5hxHwnQBrCU"; //CHANGE
+  var spreadSheetId = ""; //-------------------------------------------PUT SPREADSHEET ID HERE
   var dataRange = "backend!B10:B"; //CHANGE
   var range = Sheets.Spreadsheets.Values.get(spreadSheetId, dataRange);
   var values = range.values;
@@ -33,7 +33,7 @@ function listCategories() {
 }
 
 function getSaldo() {
-  var spreadSheetId = "1RyjKzFZZCfNqO9zF9vSQ7D6oEhhwUiMZ5hxHwnQBrCU"; //CHANGE
+  var spreadSheetId = ""; //-------------------------------------------PUT SPREADSHEET ID HERE
   var dataRange = "movimientos!F7"; //CHANGE
   var range = Sheets.Spreadsheets.Values.get(spreadSheetId, dataRange);
   var values = range.values;
