@@ -1,0 +1,125 @@
+<script>
+  function loadMovimientos(){
+        google.script.run.withSuccessHandler(showData).getData11();
+  }
+                   
+  function showData(dataArray){
+     $(document).ready(function() {
+      $('#data-table').DataTable({
+            language: {
+              search: "Buscar",
+            },
+            paging: false,
+        data: dataArray,
+        columns: [
+          {"title":"Fecha"},
+          {"title":"Notas","visible": false},
+          {"title":"Importe"},
+          {"title":"Saldo","visible": false},
+          {"title":"Pagador","visible": false},          
+          {"title":"Categoria"},
+        ]
+        });
+      }); 
+   }
+
+
+  function uploadExpense(){
+    var expMoneyTag = document.getElementById("moneyTag");
+    var expDate  = document.getElementById("date");
+    var expCategory = document.getElementById("inputGroupSelect01Value");
+    var expAmount = document.getElementById("amount");
+    var expPayee  = document.getElementById("payee");
+    var expNotes  = document.getElementById("notes");
+
+    var rowData = {
+      expDate: date.value, 
+      expNotes: notes.value, 
+      expAmount: amount.value, 
+      expSaldo: "",
+      expPayee: payee.value, 
+      expCategory: inputGroupSelect01Value.value,     
+      };
+    google.script.run.withSuccessHandler(afterSubmitInOut).addNewRow(rowData);
+  }
+
+  function afterSubmitInOut(e){
+      var expDate  = document.getElementById("date");
+      var expCategory = document.getElementById("inputGroupSelect01Value");
+      var expAmount = document.getElementById("amount");
+      var expPayee  = document.getElementById("payee");
+      var expNotes  = document.getElementById("notes");
+       expDate.value = "";
+       expCategory.value = "";
+       expAmount.value= "";
+       expPayee.value = "";
+       expNotes.value = "";
+       document.getElementById("addMinus").disabled = false;
+  }
+
+  function resetValues(){
+      var expDate  = document.getElementById("date");
+      var expCategory = document.getElementById("inputGroupSelect01Value");
+      var expAmount = document.getElementById("amount");
+      var expPayee  = document.getElementById("payee");
+      var expNotes  = document.getElementById("notes");
+       expCategory.value = "";
+       expAmount.value= "";
+       expPayee.value = "";
+       expNotes.value = "";
+       document.getElementById("addMinus").disabled = false;
+       autoDate();
+  }
+
+
+  function loadSaldo(){
+      google.script.run.withSuccessHandler(afterGetSaldoLoaded).getSaldo();
+  }
+
+  function afterGetSaldoLoaded(arrayOfArrays){
+        var saldo = document.getElementById("money")
+        arrayOfArrays.forEach(function(r){
+                  saldo.innerHTML =" "+ r[0];
+                  });
+  }
+
+  function loadCategories(){
+      google.script.run.withSuccessHandler(afterlistCategoriesloaded).listCategories();
+  }
+
+  function afterlistCategoriesloaded(arrayOfArrays){
+        var movimientos = document.getElementById("inputGroupSelect01");
+                  arrayOfArrays.forEach(function(r){
+                  var option = document.createElement("option");
+                  option.textContent = r[0];
+                  movimientos.appendChild(option);
+                  });
+  };
+
+  function autoDate(){
+    var today = new Date();
+    var newSetDate = document.getElementById("date");
+    var today = today.getFullYear()+'-'+(("0" + (today.getMonth() + 1)).slice(-2))+'-'+today.getDate();
+    newSetDate.value = today
+  }
+
+  function setMinus(){
+   document.getElementById("addMinus").disabled = true;
+   var minus = document.getElementById("amount");
+   minus.value = "-"+ minus.value;
+  
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
